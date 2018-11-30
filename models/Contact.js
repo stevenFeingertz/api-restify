@@ -3,6 +3,7 @@ const timestamp = require('mongoose-timestamp');
 const validator = require('validator');
 const moment_timezone = require('moment-timezone');
 
+// contact schema
 const ContactSchema = new mongoose.Schema({
 	isOwner: {
 		type: Boolean,
@@ -51,10 +52,12 @@ const ContactSchema = new mongoose.Schema({
 	}
 });
 
+// add created/modified timestamps
 ContactSchema.plugin(timestamp);
 
+// create Contact model
 const Contact = mongoose.model('Contact', ContactSchema);
 
 module.exports = {
-	Contact: Contact
+	Contact
 };

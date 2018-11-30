@@ -3,8 +3,7 @@ const {Contact} = require('../models/Contact.js');
 
 module.exports = server => {
 
-	// ROUTE: GET /contacts
-	// get all contacts
+// ROUTE --> GET /contacts (get all contacts)
 	server.get('/contacts', async (req, res) => {
 		try {
 			const contacts = await Contact.find({});
@@ -14,8 +13,7 @@ module.exports = server => {
 		}
 	});
 
-	// ROUTE: GET /contacts/:id
-	// get single contact
+// ROUTE --> GET /contacts/:id (get single contact)
 	server.get('/contacts/:id', async (req, res, next) => {
 		try {
 			const contact = await Contact.findById(req.params.id);
@@ -27,14 +25,8 @@ module.exports = server => {
 	});
 
 
-	// ROUTE: POST /contacts
-	// add contact
+// ROUTE --> POST /contacts (add contact)
 	server.post('/contacts', async (req, res, next) => {
-
-		// check for JSON
-		if (!req.is('application/json')) {
-			return next(new errors.InvalidContentError("Content-Type is not 'application/json'"));
-		}
 
 		// de-structure to get what we need
 		const { first_name, last_name, email, company } = req.body;
@@ -56,13 +48,8 @@ module.exports = server => {
 
 	});
 
-	// ROUTE: POST /contacts/:id
-	// update contact
+// ROUTE --> PUT /contacts/:id (update contact)
 	server.put('/contacts/:id', async (req, res, next) => {
-		// check for JSON
-		if (!req.is('application/json')) {
-			return next(new errors.InvalidContentError("Content-Type is not 'application/json'"));
-		}
 
 		try {
 			const contact = await Contact.findOneAndUpdate({_id: req.params.id }, req.body);
